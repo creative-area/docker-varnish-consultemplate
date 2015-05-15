@@ -1,6 +1,6 @@
-# Varnish 4 container (with Consul Template)
+# Docker - Varnish (with Consul Template)
 
-This image is intended to provide a caching and load balancing layer (with [Varnish Cache](https://www.varnish-cache.org/)) in front of web containers.
+This image is intended to provide a caching and load balancing layer (with [Varnish Cache](https://www.varnish-cache.org/)) in front of web containers that you can scale at runtime.
 
 It should be used along with a [Consul](https://www.consul.io/) cluster and [Registrator](https://github.com/gliderlabs/registrator) in order to provide automatic container registration. With the help of [Consul Template](https://github.com/hashicorp/consul-template), it provide a way to do transparent load balancing of containers.
 
@@ -76,3 +76,14 @@ You can adjust one of the following variables:
 - `VARNISH_PORT` 80
 - `VARNISH_STORAGE_BACKEND` malloc,100M
 - `VARNISHNCSA_LOGFORMAT` %h %l %u %t "%r" %s %b "%{Referer}i" "%{User-agent}i"
+
+## Running with Docker Compose
+
+What is great with this configuraton (Consul + Registrator + Consul Template) is that you can use Docker Compose to scale your app at runtime.
+
+For example, let's say we have a [`docker-compose.yml`](https://docs.docker.com/compose/yml/) that describe the application stack above. You could launch all your containers and then scale your web app:
+
+```bash
+$ docker-compose up -d
+$ docker-compose scale web=4
+```
