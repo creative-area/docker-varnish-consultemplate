@@ -12,7 +12,7 @@ import directors;
 # Loop through all of our variables
 # Create a backend for each node container found in the variables
 {{range service "varnished-app"}}
-backend {{.ID | replaceAll ":" "_" | replaceAll "-" "_"}} {
+backend container_{{.ID | replaceAll ":" "_" | replaceAll "-" "_"}} {
 	.host = "{{.Address}}";
 	.port = "{{.Port}}";
 	.max_connections = 300;
