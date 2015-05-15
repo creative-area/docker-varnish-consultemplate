@@ -38,7 +38,7 @@ sub vcl_init {
 	# Loop again to add each backend created
 	# Create each backend in the load balancer
 	{{range service "varnished-app"}}
-	vdir.add_backend({{.ID | replaceAll ":" "_" | replaceAll "-" "_"}});{{end}}
+	vdir.add_backend(container_{{.ID | replaceAll ":" "_" | replaceAll "-" "_"}});{{end}}
 }
 
 
